@@ -2,7 +2,7 @@
 
 // defined in 'variables.env'
 $db_host = 'database_server'; // de database server 
-$db_name = 'muziekschool';                    // naam van database
+$db_name = 'pizzeria';                    // naam van database
 
 // defined in sql-script 'movies.sql'
 $db_user    = 'sa';                 // db user
@@ -18,9 +18,8 @@ unset($db_password);
 $verbinding->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Functie om in andere files toegang te krijgen tot de verbinding.
-function maakVerbinding() {
+function maakVerbinding()
+{
   global $verbinding;
   return $verbinding;
 }
-
-?>
