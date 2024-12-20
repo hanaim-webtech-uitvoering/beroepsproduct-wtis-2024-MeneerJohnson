@@ -6,27 +6,32 @@ include_once("components/header.php");
 include_once("models/Winkelmantje.php");
 
 $errors = [];
-$cartItems = [];
+$namesOfProductsInCart = getProductsInCart(getNameOfMenuItems());
+$cartItems = getAllDetailsOfCartItem($namesOfProductsInCart);
 
-if (isset($_SESSION['winkelwagen'])) {
-    $fetchedItems = [];
-    foreach ($_SESSION['winkelwagen'] as $id) {
-        array_push($fetchedItems, getProductDetails($id));
-    }
+var_dump($_SESSION);
 
-    foreach ($fetchedItems as $fetchedItem) {
-        if (!in_array(array("name" => $fetchedItem['name'], 'price' => $fetchedItem['price'], 'amount' => array_count_values(getNamesFromCartItems($fetchedItems))[$fetchedItem['name']]), $cartItems)) {
-            array_push($cartItems, array("name" => $fetchedItem['name'], 'price' => $fetchedItem['price'], 'amount' => array_count_values(getNamesFromCartItems($fetchedItems))[$fetchedItem['name']]));
+
+function getProductsInCart($existingProducts)
+{
+    $tempArray = [];
+    foreach ($existingProducts as $existingProduct) {
+
+        if (isset($_SESSION[$existingProduct['name']])) {
+            array_push($tempArray, $existingProduct['name']);
         }
     }
+    return $tempArray;
 }
-function getNamesFromCartItems($cartItems)
+
+function getAllDetailsOfCartItem($namesOfProductsInCart)
 {
-    $array = [];
-    foreach ($cartItems as $cardItem) {
-        array_push($array, $cardItem['name']);
+    $tempArray = [];
+    foreach ($namesOfProductsInCart as $nameOfProductInCart) {
+        $temp = ['name' => $nameOfProductInCart, 'amount' => $_SESSION[$nameOfProductInCart], 'price' => getProductPrice($nameOfProductInCart)['price']];
+        array_push($tempArray, $temp);
     }
-    return $array;
+    return $tempArray;
 }
 
 ?>

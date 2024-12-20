@@ -1,4 +1,5 @@
 <?php
+include_once("util/db_connectie.php");
 include_once("util/head.php");
 include_once("components/header.php");
 include_once("models/Menu.php");
@@ -11,37 +12,32 @@ foreach ($menuItems as $menuItem) {
     $groupedMenuItems[$menuItem['type_id']][] = $menuItem;
 }
 
-if (isset($_POST['product'])) {
-    if (!isset($_SESSION['winkelwagen'])) {
-        $_SESSION['winkelwagen'] = [];
-    }
-    array_push($_SESSION['winkelwagen'], $_POST['product']);
-}
-
-
-
-
 
 ?>
 
 <div>
-    <?php foreach ($groupedMenuItems as $type => $menuItems) { ?>
-        <div>
-            <h2><?php echo htmlspecialchars($type); ?></h2>
-            <ul>
-                <?php foreach ($menuItems as $menuItem) { ?>
-                    <li>
-                        <form action="Menu.php" method="post">
-                            <button type="submit" value=<?= $menuItem['name'] ?> name="product">
-                                <strong><?php echo htmlspecialchars($menuItem['name']); ?></strong><br>
-                                Price: €<?php echo htmlspecialchars($menuItem['price']); ?>
-                            </button>
-                            <form>
-                    </li>
-                <?php } ?>
-            </ul>
-        </div>
-    <?php } ?>
+    <form action="PRG/MenuPRG.php" method="post">
+
+        <?php foreach ($groupedMenuItems as $type => $menuItems) { ?>
+            <div>
+                <h2><?php echo htmlspecialchars($type); ?></h2>
+                <ul>
+                    <?php foreach ($menuItems as $menuItem) { ?>
+                        <li>
+
+                            <strong><?php echo htmlspecialchars($menuItem['name']); ?></strong><br>
+                            Price: €<?php echo htmlspecialchars($menuItem['price']); ?>
+                            <input type="number" name=<?= str_replace(" ", "", $menuItem['name']) ?>> <!-- Aangezien de key van $_POST maar 1 woord kan zijn; replace alle spaties met niks -->
+
+
+                        </li>
+                    <?php } ?>
+                </ul>
+
+            </div>
+        <?php } ?>
+        <button type="submit" name="product">Toevoegen aan winkelwagen</button>
+        <form>
 </div>
 
 
