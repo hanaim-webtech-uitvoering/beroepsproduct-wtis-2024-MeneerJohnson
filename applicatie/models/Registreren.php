@@ -10,3 +10,14 @@ function makeAccount($username, $firstname, $lastname, $adres, $password)
     $sth = $dbh->prepare($query);
     $sth->execute(array(":username" => $username, ":firstname" => $firstname, ":lastname" => $lastname, "address" => $adres, ":password" => $password));
 }
+
+function accountExisits($username)
+{
+    $dbh = maakVerbinding();
+    $query = "SELECT count([username]) AS doesExist
+              FROM [User]
+              WHERE username = :username";
+    $sth = $dbh->prepare($query);
+    $sth->execute(array(":username" => $username));
+    return $sth->fetch(PDO::FETCH_ASSOC);
+}

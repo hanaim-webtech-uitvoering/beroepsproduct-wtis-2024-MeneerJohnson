@@ -1,6 +1,4 @@
 <?php
-
-
 include_once("util/head.php");
 include_once("components/header.php");
 include_once("models/Winkelmantje.php");
@@ -8,9 +6,6 @@ include_once("models/Winkelmantje.php");
 $errors = [];
 $namesOfProductsInCart = getProductsInCart(getNameOfMenuItems());
 $cartItems = getAllDetailsOfCartItem($namesOfProductsInCart);
-
-var_dump($_SESSION);
-
 
 function getProductsInCart($existingProducts)
 {
@@ -54,5 +49,16 @@ function getAllDetailsOfCartItem($namesOfProductsInCart)
 echo '<br>Totale kosten: $' . $totaleKosten;
 ?>
 <br>
-<button type="submit" action="betaal.php">Bestellen
-</button>
+<form action="http://localhost/WinkelmantjePRG.php" method="post">
+    <?php
+    if (!isset($_SESSION['username'])) { ?>
+        <label for="naam">Naam:</label>
+        <input type="text" id="naam" name="naam">
+        <br>
+    <?php } else {
+    ?>
+        <input type="hidden" name="username" value=<?= $_SESSION['username'] ?>>
+    <?php
+    } ?>
+    <button type="submit">Bestellen</button>
+</form>

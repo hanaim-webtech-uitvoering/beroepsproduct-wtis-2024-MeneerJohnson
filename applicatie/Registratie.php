@@ -3,6 +3,9 @@ include_once("util/head.php");
 include_once("util/util.php");
 include_once('components/header.php');
 $inputElements = array("username", "firstname", "lastname", "adres", "password");
+if (isset($_SESSION['username'])) {
+    header("Location: http://localhost:8080/");
+}
 ?>
 
 
