@@ -18,6 +18,8 @@ $headerItems = array("Menu", "Profiel", "Winkelmantje", "Registratie");
         if (isset($_SESSION['username'])) {
             echo "Hallo, " .  htmlspecialchars($_SESSION['username']);
             echo '<br><a href="http://localhost:8080/loguit.php">Loguit</a>';
+        } else {
+            echo "<a href='http://localhost:8080/Inloggen.php'>Inloggen</a>";
         }
         ?>
     </ol>

@@ -1,7 +1,10 @@
 <?php
+include('util/db_connectie.php');
 include_once("util/head.php");
 include_once("components/header.php");
 include_once("models/Winkelmantje.php");
+include_once("models/util.php");
+
 
 $errors = [];
 $namesOfProductsInCart = getProductsInCart(getNameOfMenuItems());
@@ -28,9 +31,11 @@ function getAllDetailsOfCartItem($namesOfProductsInCart)
     }
     return $tempArray;
 }
-
+$address = "";
+if (isset($_SESSION['username'])) {
+    $address = getUserData($_SESSION['username'])['address'];
+}
 ?>
-
 <table>
     <tr>
         <th>Naam</th>
@@ -49,7 +54,9 @@ function getAllDetailsOfCartItem($namesOfProductsInCart)
 echo '<br>Totale kosten: $' . $totaleKosten;
 ?>
 <br>
-<form action="http://localhost/WinkelmantjePRG.php" method="post">
+<form action="http://localhost:8080/PRG/WinkelmantjePRG.php" method="post">
+    <label for="address">Address:</label>
+    <input type="text" name="address" id="address" value=<?= $address ?>><br>
     <?php
     if (!isset($_SESSION['username'])) { ?>
         <label for="naam">Naam:</label>
@@ -62,3 +69,5 @@ echo '<br>Totale kosten: $' . $totaleKosten;
     } ?>
     <button type="submit">Bestellen</button>
 </form>
+<?php
+include_once("components/footer.php");

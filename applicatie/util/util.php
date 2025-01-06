@@ -8,3 +8,7 @@ function getElementsFromArrayWithIndex($array, $index)
     }
     return $newArray;
 }
+function isAdmin()
+{
+    return true;
+}//werk dit uit

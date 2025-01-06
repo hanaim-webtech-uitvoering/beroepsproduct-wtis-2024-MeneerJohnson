@@ -1,7 +1,4 @@
 <?php
-include_once("../util/db_connectie.php");
-
-
 function makeAccount($username, $firstname, $lastname, $adres, $password)
 {
     $dbh = maakVerbinding();

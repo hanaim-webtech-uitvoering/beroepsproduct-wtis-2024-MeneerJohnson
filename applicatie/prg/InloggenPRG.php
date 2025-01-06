@@ -1,6 +1,7 @@
 <?php
 include_once("../models/Inloggen.php");
 include_once("../util/head.php");
+include_once("../util/db_connectie.php");
 
 if (!isset($_POST['username']) || !isset($_POST['password']) || isset($_SESSION['username'])) {
     header("Location: http://localhost:8080/Inloggen.php");
