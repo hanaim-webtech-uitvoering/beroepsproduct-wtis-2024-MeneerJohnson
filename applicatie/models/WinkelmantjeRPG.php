@@ -37,7 +37,3 @@ function addOrderProducts($products)
 
 
 
-
-// SELECT TOP 1 username FROM [User]
-// WHERE role = 'Personnel'
-// ORDER BY NEWID()

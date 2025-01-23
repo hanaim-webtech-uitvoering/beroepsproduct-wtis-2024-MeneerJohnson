@@ -1,5 +1,6 @@
 <?php
 include_once("../util/head.php");
+include_once("../util/db_connectie.php");
 include_once("../models/Registreren.php");
 
 $errors = '';
@@ -23,16 +24,12 @@ if (strlen($password) < 7) {
 
 if ($errors == '') {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    try {
-        if (!accountExisits($username)['doesExist']) {
-            makeAccount($username, $firstname, $lastname, $adres, $hashedPassword);
-            $_SESSION['username'] = $username;
-            header("Location: http://localhost:8080");
-        } else {
-            header("Location: http://localhost:8080/Registratie.php?msg=Dit+account+bestaat+al");
-        }
-    } catch (error) {
-        header("Location: http://localhost:8080/Registratie.php?msg=Er+ging+iets+fout,+probeer+het+later+opniew");
+    if (!accountExisits($username)['doesExist']) {
+        makeAccount($username, $firstname, $lastname, $adres, $hashedPassword);
+        $_SESSION['username'] = $username;
+        header("Location: http://localhost:8080");
+    } else {
+        header("Location: http://localhost:8080/Registratie.php?msg=Dit+account+bestaat+al");
     }
 } else {
     header("Location: http://localhost:8080/Registratie.php?msg=" . $errors);

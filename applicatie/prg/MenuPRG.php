@@ -11,8 +11,7 @@ $menuItemsWithAmount = [];
 foreach ($itemsNaam as $itemNaam) { //Hierbij zetten we alle valide postitems met het aantal in een array
     $postItem = htmlspecialchars($_POST[str_replace(" ", '', $itemNaam)]);
     if (isset($postItem)) {
-        if (!is_numeric($postItem) || htmlspecialchars($postItem) < 1) {
-        } else {
+        if (is_numeric($postItem) || !$postItem < 1) {
             $itemObject = ["naam" => $itemNaam, "aantal" => (int)$postItem];
             array_push($menuItemsWithAmount, $itemObject);
         }
@@ -29,4 +28,6 @@ if (count($menuItemsWithAmount) > 0) { //check of er valide items zaten in de $_
         }
     }
     header("Location: http://localhost:8080/Menu.php?msg=Succesvol+toegevoegd");
+} else {
+    header("Location: http://localhost:8080/Menu.php");
 }
