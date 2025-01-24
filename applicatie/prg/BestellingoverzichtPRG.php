@@ -3,11 +3,13 @@ include_once("../util/db_connectie.php");
 include_once("../util/util.php");
 include_once("../models/BestellingoverzichtPRG.php");
 include_once("../models/Bestellingoverzicht.php");
+include_once("../models/util.php");
 
-if (!isAdmin()) {
+if (!isset($_SESSION['username']) && !getIsUserAdmin($_SESSION['username'])) {
     header("http://localhost:8080");
     exit();
 }
+
 
 $allRunningOrders = getAllRunningOrders();
 $runningOrders = [];

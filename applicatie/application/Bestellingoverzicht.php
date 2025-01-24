@@ -1,5 +1,6 @@
 <?php
 include_once('components/header.php');
+include_once("util/echoMessage.php");
 ?>
 <form method="POST" action="http://localhost:8080/PRG/BestellingoverzichtPRG.php">
     <?php
@@ -49,4 +50,4 @@ include_once('components/header.php');
 </form>
 
 <?php
-include_once ("components/footer.php");
+include_once("components/footer.php");

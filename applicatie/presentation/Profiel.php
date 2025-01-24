@@ -11,16 +11,15 @@ if (!isset($_SESSION['username'])) {
     return;
 }
 $runningOrders = getRunningOrders($_SESSION['username']);
-$groupedItems = [];
+$runningGroupedItems = [];
 foreach ($runningOrders as $runningOrder) {
     $status = $runningOrder['status'] == 1 ? "In de oven" : "Aan het bezorgen";
-    $groupedItems["<h2>OrderID: " . htmlspecialchars($runningOrder['order_id']) . "</h2><p>Geplaatst op: " . htmlspecialchars($runningOrder['datetime']) . '</p><p>Status uw bestelling: ' . $status . "</p>"][] = $runningOrder;
+    $runningGroupedItems["<h2>OrderID: " . htmlspecialchars($runningOrder['order_id']) . "</h2><p>Geplaatst op: " . htmlspecialchars($runningOrder['datetime']) . '</p><p>Status uw bestelling: ' . $status . "</p>"][] = $runningOrder;
 }
-
 
 $completedHistoryItems = getCompletedHistoryItems($_SESSION['username']);
 $groupedItems = [];
 foreach ($completedHistoryItems as $completedHistoryItem) {
     $groupedItems["<h2>OrderID: " . htmlspecialchars($completedHistoryItem['order_id']) . "</h2><p>Geplaatst op: " . htmlspecialchars($completedHistoryItem['datetime']) . '</p>'][] = $completedHistoryItem;
 }
-include_once ("application/Profiel.php");
+include_once("application/Profiel.php");

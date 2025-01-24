@@ -2,6 +2,9 @@
 IF OBJECT_ID('User', 'U') IS NOT NULL
     DROP TABLE [User];
 
+IF OBJECT_ID('LoginAttempt', 'U') IS NOT NULL
+    DROP TABLE [LoginAttempt];
+
 IF OBJECT_ID('ProductType', 'U') IS NOT NULL
     DROP TABLE ProductType;
 
@@ -30,6 +33,14 @@ CREATE TABLE [User] (
   [address] NVARCHAR(255),
   [role] NVARCHAR(50) NOT NULL
 );
+
+CREATE TABLE [LoginAttempt](
+	[ip] NVARCHAR(255) NOT NULL,
+	[datetime] DATETIME NOT NULL,
+	[username] NVARCHAR(255) NOT NULL,
+	[password] NVARCHAR(255) NOT NULL,
+	PRIMARY KEY([ip], [datetime]),
+	);
 
 -- Create ProductType table
 CREATE TABLE [ProductType] (
